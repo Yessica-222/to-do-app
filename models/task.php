@@ -30,31 +30,37 @@ class Task
         return $stmt->execute([$userId, $title, $description]);
     }
 
-    // Obtener una tarea por ID
-    public function getById($id)
+    /**
+     * Obtiene una tarea por su ID.
+     *
+     * @param int $taskId
+     *
+     * @return array|false
+     */
+    public function getById($taskId)
     {
         $sql = 'SELECT * FROM tasks WHERE id = ?';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$taskId]);
 
         return $stmt->fetch();
     }
 
     // Actualizar tarea
-    public function update($id, $title, $description, $status)
+    public function update($taskId, $title, $description, $status)
     {
         $sql = 'UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?';
         $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([$title, $description, $status, $id]);
+        return $stmt->execute([$title, $description, $status, $taskId]);
     }
 
     // Eliminar tarea
-    public function delete($id)
+    public function delete($taskId)
     {
         $sql = 'DELETE FROM tasks WHERE id = ?';
         $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([$id]);
+        return $stmt->execute([$taskId]);
     }
 }
